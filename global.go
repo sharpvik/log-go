@@ -4,13 +4,13 @@ import "io"
 
 var std = DefaultLog()
 
-// WithLevel returns a new logger instance with the specified level.
-func WithLevel(level Priority) {
+// SetLevel returns a new logger instance with the specified level.
+func SetLevel(level Priority) {
 	std = std.WithLevel(level)
 }
 
-// WithWriter returns a new logger instance with the specified writer.
-func WithWriter(writer io.Writer) {
+// SetWriter returns a new logger instance with the specified writer.
+func SetWriter(writer io.Writer) {
 	std = std.WithWriter(writer)
 }
 
