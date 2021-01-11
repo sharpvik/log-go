@@ -18,13 +18,13 @@ func WithWriter(writer io.Writer) {
 var Fatal = std.Fatal
 
 // Error writes formatted error to l.writer.
-var Error = std.Fatal
+var Error = std.Error
 
 // Warn writes formatted warning to l.writer.
-var Warn = std.Fatal
+var Warn = std.Warn
 
 // Info writes formatted message to l.writer.
-var Info = std.Fatal
+var Info = std.Info
 
 // Debug writes formatted message to l.writer.
-var Debug = std.Fatal
+var Debug = std.Debug
