@@ -2,29 +2,39 @@ package log
 
 import "io"
 
-var std = DefaultLog()
+var std = Default()
 
-// SetLevel returns a new logger instance with the specified level.
+// SetLevel changes std's priority level.
 func SetLevel(level Priority) {
 	std = std.WithLevel(level)
 }
 
-// SetWriter returns a new logger instance with the specified writer.
+// SetWriter changes std's writer.
 func SetWriter(writer io.Writer) {
 	std = std.WithWriter(writer)
 }
 
 // Fatal is equivalent to Error and os.Exit(1).
-var Fatal = std.Fatal
+func Fatal(format string, args ...interface{}) {
+	std.Fatal(format, args...)
+}
 
 // Error writes formatted error to l.writer.
-var Error = std.Error
+func Error(format string, args ...interface{}) {
+	std.Error(format, args...)
+}
 
 // Warn writes formatted warning to l.writer.
-var Warn = std.Warn
+func Warn(format string, args ...interface{}) {
+	std.Warn(format, args...)
+}
 
 // Info writes formatted message to l.writer.
-var Info = std.Info
+func Info(format string, args ...interface{}) {
+	std.Info(format, args...)
+}
 
 // Debug writes formatted message to l.writer.
-var Debug = std.Debug
+func Debug(format string, args ...interface{}) {
+	std.Debug(format, args...)
+}

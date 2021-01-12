@@ -15,18 +15,18 @@ import (
 )
 
 func TestDefaultLog(t *testing.T) {
-	l := DefaultLog()
-	assert.Equal(t, l.level, LvlError)
+	l := Default()
+	assert.Equal(t, l.level, LevelError)
 }
 
 func TestWithLevel(t *testing.T) {
-	l := DefaultLog()
-	ll := l.WithLevel(LvlDebug)
-	assert.Equal(t, ll.level, LvlDebug)
+	l := Default()
+	ll := l.WithLevel(LevelDebug)
+	assert.Equal(t, ll.level, LevelDebug)
 }
 
 func TestWithWriter(t *testing.T) {
-	l := DefaultLog()
+	l := Default()
 	var w bytes.Buffer
 
 	ll := l.WithWriter(&w)
@@ -40,7 +40,7 @@ func TestWithWriter(t *testing.T) {
 func TestFatal(t *testing.T) {
 	if os.Getenv("SHOULD_CRASH") == "1" {
 		var w bytes.Buffer
-		l := NewLog(LvlDebug, &w)
+		l := New(LevelDebug, &w, "")
 		l.Fatal("that's it... we're done here")
 		return
 	}
@@ -55,10 +55,10 @@ func TestFatal(t *testing.T) {
 
 func TestError(t *testing.T) {
 	w := new(bytes.Buffer)
-	l := NewLog(LvlDebug, w)
+	l := New(LevelDebug, w, "")
 	message := "I love this package %d!"
 	formatted := fmt.Sprintf(message, 100)
-	withHeader := header(time.Now(), LvlError) + " " + formatted
+	withHeader := header(time.Now(), LevelError) + " " + formatted
 	l.Error(message, 100)
 
 	assert.Equal(t, len(withHeader)+1, w.Len())

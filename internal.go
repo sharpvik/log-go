@@ -15,13 +15,16 @@ func header(moment time.Time, level Priority) string {
 	return fmt.Sprintf("%s %s %s",
 		moment.Format("02/01/2006"),
 		moment.Format("15:04:05"),
-		level.Show())
+		level.show())
 }
 
 // withLevel is a closure that returns a printer function.
-func (l Log) withLevel(level Priority) printer {
+func (l *Log) printerWithLevel(level Priority) printer {
 	return func(format string, args ...interface{}) {
+		l.lock.Lock()
+		defer l.lock.Unlock()
 		fmt.Fprint(l.writer, header(time.Now(), level), " ")
 		fmt.Fprintf(l.writer, format+"\n", args...)
+		l.writer.Flush()
 	}
 }
