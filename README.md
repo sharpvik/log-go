@@ -12,6 +12,11 @@ If you wish to improve upon this, you are welcome to send me a Pull Request.
 - Thread safety
 - Prefixes to separate logs from everything else
 - Extremely simple setup
+- Well-tested
+
+### Coming Soon!
+
+- Colored priority dependent output
 
 ## Log Levels
 
