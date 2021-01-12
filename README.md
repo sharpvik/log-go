@@ -5,6 +5,8 @@ It doesn't support any extra-fancy features. Just like Go itself.
 
 If you wish to improve upon this, you are welcome to send me a Pull Request.
 
+![Demo](media/konsole.png)
+
 ## Features
 
 - Different log levels like **Fatal**, **Error**, **Info**, etc.

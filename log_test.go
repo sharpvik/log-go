@@ -67,7 +67,7 @@ func TestError(t *testing.T) {
 	require.NoError(t, err)
 	printed := string(b)
 
-	t.Logf("printed: %s", printed)
+	t.Log(printed)
 
 	assert.True(t, strings.Contains(printed, "ERROR"))
 	assert.True(t, strings.HasSuffix(printed, formatted+"\n"))
