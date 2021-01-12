@@ -5,6 +5,10 @@ It doesn't support any extra-fancy features. Just like Go itself.
 
 If you wish to improve upon this, you are welcome to send me a Pull Request.
 
+<p style="text-align: center; line-height: 0; padding: 30px 0 0">
+	<a href="examples/colors/main.go">Example with Colors</a>
+</p>
+
 ![Demo](media/konsole.png)
 
 ## Features
