@@ -58,7 +58,7 @@ func TestError(t *testing.T) {
 	l := New(LevelDebug, w, "")
 	message := "I love this package %d!"
 	formatted := fmt.Sprintf(message, 100)
-	withHeader := header(time.Now(), LevelError) + " " + formatted
+	withHeader := header("", time.Now(), LevelError) + " " + formatted
 	l.Error(message, 100)
 
 	assert.Equal(t, len(withHeader)+1, w.Len())
@@ -71,4 +71,24 @@ func TestError(t *testing.T) {
 
 	assert.True(t, strings.Contains(printed, "ERROR"))
 	assert.True(t, strings.HasSuffix(printed, formatted+"\n"))
+}
+
+func TestPrefix(t *testing.T) {
+	w := new(bytes.Buffer)
+	prefix := "LOG"
+	l := New(LevelDebug, w, prefix)
+	message := "prefixed message here"
+	withHeader := header(prefix, time.Now(), LevelError) + " " + message
+	l.Info(message)
+
+	assert.Equal(t, len(withHeader)+1, w.Len())
+
+	b, err := ioutil.ReadAll(w)
+	require.NoError(t, err)
+	printed := string(b)
+
+	t.Log(printed)
+
+	assert.True(t, strings.Contains(printed, "INFO"))
+	assert.True(t, strings.HasSuffix(printed, message+"\n"))
 }
