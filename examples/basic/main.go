@@ -22,4 +22,6 @@ func main() {
 	// Print log with priority level Info.
 	log.Info("x = %d", x)
 	// * 11/01/2021 23:07:08 INFO  x = 42
+
+	log.Panic("I don't know what to do with my life!")
 }

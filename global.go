@@ -14,6 +14,11 @@ func SetWriter(writer io.Writer) {
 	std = std.WithWriter(writer)
 }
 
+// Panic is equivalent to panic(formattedMessage).
+func Panic(format string, args ...interface{}) {
+	std.Panic(format, args...)
+}
+
 // Fatal is equivalent to Error and os.Exit(1).
 func Fatal(format string, args ...interface{}) {
 	std.Fatal(format, args...)

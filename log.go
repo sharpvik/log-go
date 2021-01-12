@@ -45,28 +45,33 @@ func (l *Log) WithPrefix(prefix string) Log {
 	return New(l.level, l.writer, prefix)
 }
 
+// Panic is equivalent to panic(formattedMessage).
+func (l *Log) Panic(format string, args ...interface{}) {
+	panic(l.compose(LevelPanic, format, args...))
+}
+
 // Fatal is equivalent to Error and os.Exit(1).
 func (l *Log) Fatal(format string, args ...interface{}) {
-	l.printerWithLevel(LevelFatal)(format, args...)
+	l.print(LevelFatal, format, args...)
 	os.Exit(1)
 }
 
 // Error writes formatted error to l.writer.
 func (l *Log) Error(format string, args ...interface{}) {
-	l.printerWithLevel(LevelError)(format, args...)
+	l.print(LevelError, format, args...)
 }
 
 // Warn writes formatted warning to l.writer.
 func (l *Log) Warn(format string, args ...interface{}) {
-	l.printerWithLevel(LevelWarn)(format, args...)
+	l.print(LevelWarn, format, args...)
 }
 
 // Info writes formatted info message to l.writer.
 func (l *Log) Info(format string, args ...interface{}) {
-	l.printerWithLevel(LevelInfo)(format, args...)
+	l.print(LevelInfo, format, args...)
 }
 
 // Debug writes formatted debug message to l.writer.
 func (l *Log) Debug(format string, args ...interface{}) {
-	l.printerWithLevel(LevelDebug)(format, args...)
+	l.print(LevelDebug, format, args...)
 }

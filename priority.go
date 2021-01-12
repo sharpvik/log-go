@@ -7,20 +7,22 @@ type Priority uint8
 
 // Log Priority levels are listed here as constants for convenience.
 const (
-	LevelFatal Priority = iota
+	LevelPanic Priority = iota
+	LevelFatal
 	LevelError
 	LevelWarn
 	LevelInfo
 	LevelDebug
 )
 
-// priorityShowValues is an array that Priority string representations.
+// priorityShowValues is an array that contains Priority string representations.
 // Notice, that all strings here are exactly 5 chars long so as to be perfectly
 // aligned when printed.
-var priorityShowValues = [5]struct {
+var priorityShowValues = [6]struct {
 	str string
 	clr func(interface{}) aurora.Value
 }{
+	{"PANIC", aurora.Magenta},
 	{"FATAL", aurora.Magenta},
 	{"ERROR", aurora.Red},
 	{"WARN ", aurora.Yellow},

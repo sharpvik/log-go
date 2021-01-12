@@ -25,11 +25,12 @@ If you wish to improve upon this, you are welcome to send me a Pull Request.
 
 This library comes with the following log levels:
 
-1. Fatal
-2. Error
-3. Warn
-4. Info
-5. Debug
+1. Panic
+2. Fatal
+3. Error
+4. Warn
+5. Info
+6. Debug
 
 These are enumerated as `LevelDebug`, `LevelInfo`, etc., so that you won't have
 to memorise them by numbers.

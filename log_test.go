@@ -92,3 +92,19 @@ func TestPrefix(t *testing.T) {
 	assert.True(t, strings.Contains(printed, "INFO"))
 	assert.True(t, strings.HasSuffix(printed, message+"\n"))
 }
+
+func TestPanic(t *testing.T) {
+	if os.Getenv("SHOULD_CRASH") == "1" {
+		var w bytes.Buffer
+		l := New(LevelDebug, &w, "")
+		l.Panic("that's it... we're done here")
+		return
+	}
+
+	cmd := exec.Command(os.Args[0], "-test.run=TestPanic")
+	cmd.Env = append(os.Environ(), "SHOULD_CRASH=1")
+	err := cmd.Run()
+	if e, ok := err.(*exec.ExitError); !ok && !e.Success() {
+		t.Fatalf("process ran with err %v, want exit status 1", err)
+	}
+}

@@ -7,10 +7,6 @@ import (
 	"github.com/logrusorgru/aurora"
 )
 
-// printer is a function that knows its writer, header, and priority level. It
-// is simply waiting for the message to print.
-type printer func(string, ...interface{})
-
 // header returns a string that represents a log prefix with date, time, and
 // log priority level.
 func header(prefix string, moment time.Time, level Priority) string {
@@ -27,13 +23,20 @@ func header(prefix string, moment time.Time, level Priority) string {
 		level.show())
 }
 
-// withLevel is a closure that returns a printer function.
-func (l *Log) printerWithLevel(level Priority) printer {
-	return func(format string, args ...interface{}) {
-		l.lock.Lock()
-		defer l.lock.Unlock()
-		fmt.Fprint(l.writer, header(l.prefix, time.Now(), level), " ")
-		fmt.Fprintf(l.writer, format+"\n", args...)
-		l.writer.Flush()
-	}
+// compose returns a string ready for printing that contains all the necessary
+// components like header and the formatted message.
+func (l *Log) compose(
+	level Priority, format string, args ...interface{}) string {
+	formatted := fmt.Sprintf(format, args...)
+	return fmt.Sprintf("%s %s\n",
+		header(l.prefix, time.Now(), level),
+		formatted)
+}
+
+// print writes composed record to l.writer.
+func (l *Log) print(level Priority, format string, args ...interface{}) {
+	l.lock.Lock()
+	defer l.writer.Flush()
+	defer l.lock.Unlock()
+	fmt.Fprint(l.writer, l.compose(level, format, args...))
 }

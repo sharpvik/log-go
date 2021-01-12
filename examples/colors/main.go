@@ -10,7 +10,7 @@ func init() {
 func main() {
 	log.Debug("launching nuclear missiles...")
 	log.Info("all warheads left their stations")
-	log.Warn("the targets will be reches soon")
+	log.Warn("the targets will be reched soon")
 	log.Error("targets have not been destroyed")
 	log.Fatal("looks like we've been hacked :(")
 }
