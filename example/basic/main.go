@@ -8,7 +8,7 @@ import (
 
 func init() {
 	// Change log level.
-	log.SetLevel(log.LevelInfo) // default: LvlError
+	log.SetLevel(log.LevelInfo) // default: LevelError
 
 	// Change log writer.
 	file, _ := os.Create("server.log")

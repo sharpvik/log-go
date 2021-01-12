@@ -28,8 +28,8 @@ This library comes with the following log levels:
 4. Info
 5. Debug
 
-These are enumerated as `LvlDebug`, `LvlInfo`, etc., so that you won't have to
-memorise them by numbers.
+These are enumerated as `LevelDebug`, `LevelInfo`, etc., so that you won't have
+to memorise them by numbers.
 
 Each `Log` instance has five methods that are named precisely after the levels.
 Use them like so:
@@ -51,7 +51,7 @@ import (
 
 func init() {
 	// Change log level.
-	log.SetLevel(log.LvlInfo) // default: LvlError
+	log.SetLevel(log.LevelInfo) // default: LevelError
 
 	// Change log writer.
 	file, _ := os.Create("server.log")

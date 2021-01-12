@@ -12,22 +12,21 @@ const (
 	LevelDebug
 )
 
-// priorityShowValues is a map that connects Priority with its string
-// representation. Notice, that all strings here are exactly 5 chars long so as
-// to be perfectly aligned when printed.
-var priorityShowValues = map[Priority]string{
-	LevelFatal: "FATAL",
-	LevelError: "ERROR",
-	LevelWarn:  "WARN ",
-	LevelInfo:  "INFO ",
-	LevelDebug: "DEBUG",
+// priorityShowValues is an array that Priority string representations.
+// Notice, that all strings here are exactly 5 chars long so as to be perfectly
+// aligned when printed.
+var priorityShowValues = [5]string{
+	"FATAL",
+	"ERROR",
+	"WARN ",
+	"INFO ",
+	"DEBUG",
 }
 
 // show function returns Priority flag as a string.
-func (p Priority) show() (str string) {
-	str, ok := priorityShowValues[p]
-	if !ok {
+func (p Priority) show() string {
+	if int(p) >= len(priorityShowValues) {
 		panic("cannot show unknown Priority")
 	}
-	return
+	return priorityShowValues[p]
 }
