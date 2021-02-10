@@ -22,7 +22,7 @@ func main() {
 // thread logs "Hello from thread {name}" 5 times with an interval of 100ms.
 func thread(name string) {
 	for i := 0; i < 5; i++ {
-		log.Debug("Hello from thread %s", name)
+		log.Debugf("Hello from thread %s", name)
 		time.Sleep(100 * time.Millisecond)
 	}
 }

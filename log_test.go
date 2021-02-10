@@ -41,7 +41,7 @@ func TestFatal(t *testing.T) {
 	if os.Getenv("SHOULD_CRASH") == "1" {
 		var w bytes.Buffer
 		l := New(LevelDebug, &w, "")
-		l.Fatal("that's it... we're done here")
+		l.Fatalf("that's it... we're done here")
 		return
 	}
 
@@ -59,7 +59,7 @@ func TestError(t *testing.T) {
 	message := "I love this package %d!"
 	formatted := fmt.Sprintf(message, 100)
 	withHeader := header("", time.Now(), LevelError) + " " + formatted
-	l.Error(message, 100)
+	l.Errorf(message, 100)
 
 	assert.Equal(t, len(withHeader)+1, w.Len())
 

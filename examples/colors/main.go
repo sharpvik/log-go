@@ -8,9 +8,9 @@ func init() {
 }
 
 func main() {
-	log.Debug("launching nuclear missiles...")
-	log.Info("all warheads left their stations")
-	log.Warn("the targets will be reched soon")
-	log.Error("targets have not been destroyed")
-	log.Fatal("looks like we've been hacked :(")
+	log.Debugf("launching nuclear missiles...")
+	log.Infof("all warheads left their stations")
+	log.Warnf("the targets will be reached soon")
+	log.Errorf("targets have not been destroyed")
+	log.Fatalf("looks like we've been hacked :(")
 }

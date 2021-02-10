@@ -14,32 +14,62 @@ func SetWriter(writer io.Writer) {
 	std = std.WithWriter(writer)
 }
 
+// Panicf is equivalent to panic(formattedMessage).
+func Panicf(format string, args ...interface{}) {
+	std.Panicf(format, args...)
+}
+
+// Fatalf is equivalent to Error and os.Exit(1).
+func Fatalf(format string, args ...interface{}) {
+	std.Fatalf(format, args...)
+}
+
+// Errorf writes formatted error to l.writer.
+func Errorf(format string, args ...interface{}) {
+	std.Errorf(format, args...)
+}
+
+// Warnf writes formatted warning to l.writer.
+func Warnf(format string, args ...interface{}) {
+	std.Warnf(format, args...)
+}
+
+// Infof writes formatted message to l.writer.
+func Infof(format string, args ...interface{}) {
+	std.Infof(format, args...)
+}
+
+// Debugf writes formatted message to l.writer.
+func Debugf(format string, args ...interface{}) {
+	std.Debugf(format, args...)
+}
+
 // Panic is equivalent to panic(formattedMessage).
-func Panic(format string, args ...interface{}) {
-	std.Panic(format, args...)
+func Panic(args ...interface{}) {
+	std.Panic(args...)
 }
 
 // Fatal is equivalent to Error and os.Exit(1).
-func Fatal(format string, args ...interface{}) {
-	std.Fatal(format, args...)
+func Fatal(args ...interface{}) {
+	std.Fatal(args...)
 }
 
 // Error writes formatted error to l.writer.
-func Error(format string, args ...interface{}) {
-	std.Error(format, args...)
+func Error(args ...interface{}) {
+	std.Error(args...)
 }
 
 // Warn writes formatted warning to l.writer.
-func Warn(format string, args ...interface{}) {
-	std.Warn(format, args...)
+func Warn(args ...interface{}) {
+	std.Warn(args...)
 }
 
-// Info writes formatted message to l.writer.
-func Info(format string, args ...interface{}) {
-	std.Info(format, args...)
+// Info writes formatted info message to l.writer.
+func Info(args ...interface{}) {
+	std.Info(args...)
 }
 
-// Debug writes formatted message to l.writer.
-func Debug(format string, args ...interface{}) {
-	std.Debug(format, args...)
+// Debug writes formatted debug message to l.writer.
+func Debug(args ...interface{}) {
+	std.Debug(args...)
 }

@@ -20,8 +20,8 @@ func main() {
 	x := 40 + 2
 
 	// Print log with priority level Info.
-	log.Info("x = %d", x)
+	log.Infof("x = %d", x)
 	// * 11/01/2021 23:07:08 INFO  x = 42
 
-	log.Panic("I don't know what to do with my life!")
+	log.Panicf("I don't know what to do with my life!")
 }

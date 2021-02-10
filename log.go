@@ -2,6 +2,7 @@ package log
 
 import (
 	"bufio"
+	"fmt"
 	"io"
 	"os"
 	"sync"
@@ -45,33 +46,64 @@ func (l *Log) WithPrefix(prefix string) Log {
 	return New(l.level, l.writer, prefix)
 }
 
-// Panic is equivalent to panic(formattedMessage).
-func (l *Log) Panic(format string, args ...interface{}) {
+// Panicf is equivalent to panic(formattedMessage).
+func (l *Log) Panicf(format string, args ...interface{}) {
 	panic(l.compose(LevelPanic, format, args...))
 }
 
-// Fatal is equivalent to Error and os.Exit(1).
-func (l *Log) Fatal(format string, args ...interface{}) {
+// Fatalf is equivalent to Error and os.Exit(1).
+func (l *Log) Fatalf(format string, args ...interface{}) {
 	l.print(LevelFatal, format, args...)
 	os.Exit(1)
 }
 
-// Error writes formatted error to l.writer.
-func (l *Log) Error(format string, args ...interface{}) {
+// Errorf writes formatted error to l.writer.
+func (l *Log) Errorf(format string, args ...interface{}) {
 	l.print(LevelError, format, args...)
 }
 
-// Warn writes formatted warning to l.writer.
-func (l *Log) Warn(format string, args ...interface{}) {
+// Warnf writes formatted warning to l.writer.
+func (l *Log) Warnf(format string, args ...interface{}) {
 	l.print(LevelWarn, format, args...)
 }
 
-// Info writes formatted info message to l.writer.
-func (l *Log) Info(format string, args ...interface{}) {
+// Infof writes formatted info message to l.writer.
+func (l *Log) Infof(format string, args ...interface{}) {
 	l.print(LevelInfo, format, args...)
 }
 
-// Debug writes formatted debug message to l.writer.
-func (l *Log) Debug(format string, args ...interface{}) {
+// Debugf writes formatted debug message to l.writer.
+func (l *Log) Debugf(format string, args ...interface{}) {
 	l.print(LevelDebug, format, args...)
+}
+
+// Panic is equivalent to panic(formattedMessage).
+func (l *Log) Panic(args ...interface{}) {
+	panic(l.compose(LevelPanic, fmt.Sprint(args...)))
+}
+
+// Fatal is equivalent to Error and os.Exit(1).
+func (l *Log) Fatal(args ...interface{}) {
+	l.print(LevelFatal, fmt.Sprint(args...))
+	os.Exit(1)
+}
+
+// Error writes formatted error to l.writer.
+func (l *Log) Error(args ...interface{}) {
+	l.print(LevelError, fmt.Sprint(args...))
+}
+
+// Warn writes formatted warning to l.writer.
+func (l *Log) Warn(args ...interface{}) {
+	l.print(LevelWarn, fmt.Sprint(args...))
+}
+
+// Info writes formatted info message to l.writer.
+func (l *Log) Info(args ...interface{}) {
+	l.print(LevelInfo, fmt.Sprint(args...))
+}
+
+// Debug writes formatted debug message to l.writer.
+func (l *Log) Debug(args ...interface{}) {
+	l.print(LevelDebug, fmt.Sprint(args...))
 }
