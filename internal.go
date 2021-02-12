@@ -35,6 +35,10 @@ func (l *Log) compose(
 
 // print writes composed record to l.writer.
 func (l *Log) print(level Priority, format string, args ...interface{}) {
+	if l.level < level {
+		return
+	}
+
 	l.lock.Lock()
 	defer l.writer.Flush()
 	defer l.lock.Unlock()
