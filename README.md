@@ -18,7 +18,7 @@ If you wish to improve upon this, you are welcome to send me a Pull Request.
 - Thread safety
 - Prefixes to separate logs from everything else
 - Extremely simple setup
-- Coloured terminal output
+- Optionally coloured terminal output
 - Well-tested
 
 ## Log Levels
@@ -36,11 +36,13 @@ These are enumerated as `LevelDebug`, `LevelInfo`, etc., so that you won't have
 to memorise them by numbers.
 
 Each `Log` instance has five methods that are named precisely after the levels.
+As well as their formatted counterparts `Debugf`, `Infof`, `Errorf`, etc.
 Use them like so:
 
 ```go
 logger := log.Default()
 logger.Warn("this is a warning")
+logger.Infof("this is an information message #%d", 42)
 ```
 
 ## [Basic Setup](examples/basic/main.go)

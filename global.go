@@ -6,12 +6,21 @@ var std = Default()
 
 // SetLevel changes std's priority level.
 func SetLevel(level Priority) {
-	std = std.WithLevel(level)
+	std.WithLevel(level)
 }
 
 // SetWriter changes std's writer.
 func SetWriter(writer io.Writer) {
-	std = std.WithWriter(writer)
+	std.WithWriter(writer)
+}
+
+// SetColor changes std's color mode.
+func SetColor(color bool) {
+	if color {
+		std.WithColor()
+	} else {
+		std.WithoutColor()
+	}
 }
 
 // Panicf is equivalent to panic(formattedMessage).

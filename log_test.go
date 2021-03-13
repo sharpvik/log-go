@@ -31,7 +31,7 @@ func TestWithWriter(t *testing.T) {
 
 	ll := l.WithWriter(&w)
 	message := "Hello, Log!"
-	n, err := fmt.Fprintf(ll.writer, message)
+	n, err := fmt.Fprint(ll.writer, message)
 
 	assert.Equal(t, len(message), n)
 	require.NoError(t, err)
@@ -40,7 +40,7 @@ func TestWithWriter(t *testing.T) {
 func TestFatal(t *testing.T) {
 	if os.Getenv("SHOULD_CRASH") == "1" {
 		var w bytes.Buffer
-		l := New(LevelDebug, &w, "")
+		l := New(LevelDebug, &w, "", true)
 		l.Fatalf("that's it... we're done here")
 		return
 	}
@@ -55,10 +55,10 @@ func TestFatal(t *testing.T) {
 
 func TestError(t *testing.T) {
 	w := new(bytes.Buffer)
-	l := New(LevelDebug, w, "")
+	l := New(LevelDebug, w, "", true)
 	message := "I love this package %d!"
 	formatted := fmt.Sprintf(message, 100)
-	withHeader := header("", time.Now(), LevelError) + " " + formatted
+	withHeader := l.header(time.Now(), LevelError) + " " + formatted
 	l.Errorf(message, 100)
 
 	assert.Equal(t, len(withHeader)+1, w.Len())
@@ -76,9 +76,9 @@ func TestError(t *testing.T) {
 func TestPrefix(t *testing.T) {
 	w := new(bytes.Buffer)
 	prefix := "LOG"
-	l := New(LevelDebug, w, prefix)
+	l := New(LevelDebug, w, prefix, true)
 	message := "prefixed message here"
-	withHeader := header(prefix, time.Now(), LevelError) + " " + message
+	withHeader := l.header(time.Now(), LevelError) + " " + message
 	l.Info(message)
 
 	assert.Equal(t, len(withHeader)+1, w.Len())
@@ -96,7 +96,7 @@ func TestPrefix(t *testing.T) {
 func TestPanic(t *testing.T) {
 	if os.Getenv("SHOULD_CRASH") == "1" {
 		var w bytes.Buffer
-		l := New(LevelDebug, &w, "")
+		l := New(LevelDebug, &w, "", true)
 		l.Panic("that's it... we're done here")
 		return
 	}

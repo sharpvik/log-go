@@ -14,36 +14,53 @@ type Log struct {
 	level  Priority
 	writer *bufio.Writer
 	prefix string
+	color  bool
 }
 
 // New returns a new custom logger instance.
-func New(level Priority, writer io.Writer, prefix string) Log {
-	return Log{
+func New(level Priority, writer io.Writer, prefix string, color bool) *Log {
+	return &Log{
 		level:  level,
 		writer: bufio.NewWriter(writer),
 		prefix: prefix,
+		color:  true,
 	}
 }
 
 // Default returns a default logger instance used withing this package and
 // available globally.
-func Default() Log {
-	return New(LevelError, os.Stdout, "")
+func Default() *Log {
+	return New(LevelError, os.Stdout, "", true)
 }
 
 // WithLevel returns a new logger instance with the specified level.
-func (l *Log) WithLevel(level Priority) Log {
-	return New(level, l.writer, l.prefix)
+func (l *Log) WithLevel(level Priority) *Log {
+	l.level = level
+	return l
 }
 
 // WithWriter returns a new logger instance with the specified writer.
-func (l *Log) WithWriter(writer io.Writer) Log {
-	return New(l.level, writer, l.prefix)
+func (l *Log) WithWriter(writer io.Writer) *Log {
+	l.writer = bufio.NewWriter(writer)
+	return l
 }
 
 // WithPrefix returns a new logger instance with the specified prefix.
-func (l *Log) WithPrefix(prefix string) Log {
-	return New(l.level, l.writer, prefix)
+func (l *Log) WithPrefix(prefix string) *Log {
+	l.prefix = prefix
+	return l
+}
+
+// WithColor returns a new logger instance with color mode turned on.
+func (l *Log) WithColor() *Log {
+	l.color = true
+	return l
+}
+
+// WithoutColor returns a new logger instance with color mode turned off.
+func (l *Log) WithoutColor() *Log {
+	l.color = false
+	return l
 }
 
 // Panicf is equivalent to panic(formattedMessage).

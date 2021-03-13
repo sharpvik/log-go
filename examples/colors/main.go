@@ -5,6 +5,9 @@ import "github.com/sharpvik/log-go"
 
 func init() {
 	log.SetLevel(log.LevelDebug)
+	log.SetColor(false)
+	log.Info("you can now log without color if you want!")
+	log.SetColor(true)
 }
 
 func main() {

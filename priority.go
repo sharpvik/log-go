@@ -31,10 +31,14 @@ var priorityShowValues = [6]struct {
 }
 
 // show function returns Priority flag as a string.
-func (p Priority) show() aurora.Value {
+func (p Priority) show(color bool) interface{} {
 	if int(p) >= len(priorityShowValues) {
 		panic("cannot show unknown Priority")
 	}
 	value := priorityShowValues[p]
-	return value.clr(value.str)
+	if color {
+		return value.clr(value.str)
+	} else {
+		return value.str
+	}
 }
