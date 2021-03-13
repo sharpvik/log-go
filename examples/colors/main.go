@@ -1,7 +1,7 @@
 // This example shows you all colours of the rainbow! :)
 package main
 
-import "github.com/sharpvik/log-go"
+import "github.com/sharpvik/log-go/v2"
 
 func init() {
 	log.SetLevel(log.LevelDebug)

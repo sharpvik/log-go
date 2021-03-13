@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/sharpvik/log-go"
+	"github.com/sharpvik/log-go/v2"
 )
 
 func init() {

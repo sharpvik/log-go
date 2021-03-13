@@ -1,4 +1,4 @@
-module github.com/sharpvik/log-go
+module github.com/sharpvik/log-go/v2
 
 go 1.15
 
