@@ -10,7 +10,7 @@ import (
 
 // Log is the central logger struct.
 type Log struct {
-	lock   sync.Mutex
+	sync.Mutex
 	level  Priority
 	writer *bufio.Writer
 	prefix string

@@ -19,8 +19,8 @@ const (
 // Notice, that all strings here are exactly 5 chars long so as to be perfectly
 // aligned when printed.
 var priorityShowValues = [6]struct {
-	str string
-	clr func(interface{}) aurora.Value
+	text  string
+	color func(interface{}) aurora.Value
 }{
 	{"PANIC", aurora.Magenta},
 	{"FATAL", aurora.Magenta},
@@ -30,15 +30,15 @@ var priorityShowValues = [6]struct {
 	{"DEBUG", aurora.Blue},
 }
 
-// show function returns Priority flag as a string.
+// show function returns Priority flag as a string colored depending on the
+// color argument passed in.
 func (p Priority) show(color bool) interface{} {
 	if int(p) >= len(priorityShowValues) {
 		panic("cannot show unknown Priority")
 	}
 	value := priorityShowValues[p]
 	if color {
-		return value.clr(value.str)
-	} else {
-		return value.str
+		return value.color(value.text)
 	}
+	return value.text
 }

@@ -12,6 +12,5 @@ func init() {
 }
 
 func main() {
-	err := errors.New("something went wrong")
-	log.Error(err)
+	log.Error(errors.New("something went wrong"))
 }

@@ -7,22 +7,25 @@ import (
 	"github.com/logrusorgru/aurora"
 )
 
-// header returns a string that represents a log prefix with date, time, and
-// log priority level.
+// header returns a string that contains a log prefix with date, time, and log
+// priority level.
 func (l *Log) header(moment time.Time, level Priority) string {
-	var cprefix interface{}
-	if len(l.prefix) == 0 {
-		cprefix = ""
-	} else if l.color {
-		cprefix = aurora.Cyan(l.prefix + " ")
-	} else {
-		cprefix = l.prefix + " "
-	}
 	return fmt.Sprintf("%s%s %s %s",
-		cprefix,
+		l.cprefix(),
 		moment.Format("02/01/2006"),
 		moment.Format("15:04:05"),
 		level.show(l.color))
+}
+
+// cprefix returns a properly formatted and colored prefix.
+func (l *Log) cprefix() interface{} {
+	if len(l.prefix) == 0 {
+		return ""
+	}
+	if l.color {
+		return aurora.Cyan(l.prefix + " ")
+	}
+	return l.prefix + " "
 }
 
 // compose returns a string ready for printing that contains all the necessary
@@ -40,8 +43,8 @@ func (l *Log) print(level Priority, format string, args ...interface{}) {
 	if l.level < level {
 		return
 	}
-	l.lock.Lock()
-	defer l.writer.Flush()
-	defer l.lock.Unlock()
+	l.Lock()
+	defer l.Unlock()
 	fmt.Fprint(l.writer, l.compose(level, format, args...))
+	l.writer.Flush()
 }
